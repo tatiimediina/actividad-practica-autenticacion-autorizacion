@@ -4,11 +4,11 @@ import express from 'express';
 import session from 'express-session';
 import morgan from 'morgan';
 import path from 'path';
-
-import { database } from './db/database.js';
+import { authRouter} from './src/routes/auth.routes.js';    
+import { createMyPool } from './src/db/database.js' 
+import { PORT } from './src/settings/config.js'             
 
 const app = express();
-const PORT = process.env.PORT || 4000;
 
 const __dirname = path.resolve();
 
@@ -16,6 +16,7 @@ const __dirname = path.resolve();
 app.use(cors({ // Permitir solicitudes desde el front-end
     origin: [
         'http://localhost:5500',
+        'http://localhost:4000',
         'http://localhost:3000',
     ],
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
@@ -35,10 +36,12 @@ app.use(session({
     }
 }));
 
+//RUTAS
 
+app.use(authRouter)
 
 // Ruta para manejar el inicio de sesión
-app.post('/login', (req, res) => {
+/* app.post('/login', (req, res) => {
     const { username, password } = req.body;
 
     // Buscar usuario
@@ -55,10 +58,10 @@ app.post('/login', (req, res) => {
     } else {
         return res.status(401).json({ message: 'Credenciales incorrectas' });
     }
-});
+}); */
 
 // Ruta para obtener los datos de la sesión
-app.get('/session', (req, res) => {
+/* app.get('/session', (req, res) => {
     if (req.session.userId) {
         return res.json({ 
             loggedIn: true, 
@@ -66,10 +69,10 @@ app.get('/session', (req, res) => {
     } else {
         return res.status(401).json({ loggedIn: false, message: 'No hay sesión activa' });
     }
-});
+}); */
 
 // Ruta para cerrar la sesión
-app.post('/logout', (req, res) => {
+/* app.post('/logout', (req, res) => {
     console.log(req.session)
     req.session.destroy(err => {
         if (err) {
@@ -78,6 +81,10 @@ app.post('/logout', (req, res) => {
         res.clearCookie('connect.sid'); // Nombre de cookie por defecto para express-session
         return res.json({ message: 'Sesión cerrada exitosamente' });
     });
-});
+}); */
 
-app.listen(PORT, () => console.log(`Server running on http://localhost:${PORT}/`));
+app.listen(PORT, async() => {
+    const pool = await createMyPool();
+    console.log(`Servidor corriendo en el puerto ${PORT}`);
+}
+);
