@@ -58,3 +58,20 @@ export const logout = async (req, res) => {
     return res.json({ message: 'Sesión cerrada exitosamente' });
   });
 };
+
+export const register = async(req, res) =>{
+    const { username, password } = req.body;
+
+    try {
+        const pool = await createMyPool();
+        await pool.query(
+            "INSERT INTO users (username, password) VALUES (?, ?)",
+            [username, password]
+        );
+        return res.json({ message: "Usuario creado exitosamente" });
+    } catch (err) {
+        console.error(err);
+        return res.status(500).json({ message: "Error en el servidor" });
+        
+    }
+}
