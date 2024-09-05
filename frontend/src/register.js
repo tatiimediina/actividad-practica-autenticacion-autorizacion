@@ -1,12 +1,11 @@
-import { Navbar } from "./navbar";
-
-export const renderLogin = ($app) => {
+import Swal from "sweetalert2";
+export const renderRegister = ($app) => {
   $app.classList.add("flex", "justify-center", "items-center", "h-screen");
   const $form = document.createElement("form");
 
   // Título del formulario
   const $title = document.createElement("h1");
-  $title.innerText = "Iniciar Sesión";
+  $title.innerText = "Registrarse";
   $title.classList.add(
     "text-center",
     "font-bold",
@@ -21,7 +20,7 @@ export const renderLogin = ($app) => {
     "flex",
     "flex-col",
     "items-center",
-    "bg-slate-200",
+    "bg-pink-100",
     "rounded",
     "p-6",
     "shadow-md",
@@ -71,10 +70,10 @@ export const renderLogin = ($app) => {
   // Estilo del botón de login
   const $button = document.createElement("button");
   $button.type = "submit";
-  $button.innerText = "Iniciar Sesión";
+  $button.innerText = "Registrarme";
   $button.classList.add(
-    "bg-sky-500",
-    "hover:bg-sky-600",
+    "bg-pink-400",
+    "hover:bg-pink-600",
     "text-white",
     "rounded",
     "py-2",
@@ -88,7 +87,6 @@ export const renderLogin = ($app) => {
   $form.appendChild($button);
 
   // Añadir el formulario a la aplicación
-
   $app.appendChild($form);
 
   // Agregamos el evento submit al formulario
@@ -101,7 +99,7 @@ export const renderLogin = ($app) => {
 
     try {
       // Hacemos la petición fetch para enviar las credenciales
-      const response = await fetch("http://localhost:4000/login", {
+      const response = await fetch("http://localhost:4000/register", {
         method: "POST",
         credentials: "include",
         headers: {
@@ -113,7 +111,14 @@ export const renderLogin = ($app) => {
       const data = await response.json();
 
       if (response.ok) {
-        window.location.href = "/home";
+        Swal.fire({
+          title: "¡Registro exitoso!",
+          text: "¡Bienvenido ! Ya puedes iniciar sesión",
+          icon: "success",
+        });
+        setTimeout(() => {
+          window.location.href = "/login";
+        }, 2000);
       } else {
         alert(`Error: ${data.message}`);
       }

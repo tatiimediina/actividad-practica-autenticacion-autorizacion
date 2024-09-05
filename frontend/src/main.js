@@ -1,11 +1,17 @@
-import './style.css'
+import "./style.css";
 
-import {renderLogin} from './login.js'
-    
-const pathname= window.location.pathname;
+import { renderLogin } from "./login.js";
+import { renderRegister } from "./register.js";
+import { renderHome } from "./home.js";
 
-const $app = document.getElementById('app');
+const pathname = window.location.pathname;
 
-if (pathname === '/login') {
+const $app = document.getElementById("app");
+
+if (pathname === "/login") {
   renderLogin($app);
-} 
+} else if (pathname === "/register") {
+  renderRegister($app);
+} else if (pathname === "/home") {
+  renderHome($app);
+}
