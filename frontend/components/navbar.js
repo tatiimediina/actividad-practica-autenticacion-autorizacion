@@ -30,6 +30,7 @@ export const Navbar = ($app) => {
   );
   $btnLogout.innerText = "Logout";
   const $ul = document.createElement("ul");
+  
   $ul.classList.add("flex", "flex-row", "gap-4");
   const $blog = document.createElement("li");
   $blog.innerText = "Blog";

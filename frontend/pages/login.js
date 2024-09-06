@@ -1,4 +1,4 @@
-import { Navbar } from "./navbar";
+
 
 export const renderLogin = ($app) => {
   $app.classList.add("flex", "justify-center", "items-center", "h-screen");

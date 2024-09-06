@@ -1,8 +1,8 @@
 import "./style.css";
 
-import { renderLogin } from "./login.js";
-import { renderRegister } from "./register.js";
-import { renderHome } from "./home.js";
+import { renderLogin } from "../pages/login.js";
+import { renderRegister } from "../pages/register.js";
+import { renderHome } from "../pages/home.js";
 
 const pathname = window.location.pathname;
 
