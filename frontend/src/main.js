@@ -33,7 +33,7 @@ if (pathname === "/home" || pathname === "/about" || pathname === "/blog") {
     if (response.ok) {
       const data = await response.json();
 
-      document.getElementById("user-name").innerText = data.user.username;
+      document.getElementById("user-name").innerText = data.user[0].username;
     } else {
       // Redirigir al usuario a la página de inicio de sesión
       window.location.href = "/home";
