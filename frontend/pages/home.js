@@ -1,11 +1,12 @@
 import { Navbar } from "../components/navbar";
+import { Footer } from "../components/footer.js";
 
 export const renderHome = ($app) => {
   // Renderiza el Navbar
   Navbar($app);
 
   const $container = document.createElement("main");
-  $container.classList.add("h-full")
+  $container.classList.add("h-full");
 
   $container.innerHTML += `
     <div class="flex flex-col items-center justify-center py-4">
@@ -49,11 +50,10 @@ export const renderHome = ($app) => {
     <p class="mt-4">En LockDev, nos preocupamos por la seguridad de tus aplicaciones. Ofrecemos auditorías de seguridad y soluciones robustas para proteger tus sistemas de posibles amenazas y vulnerabilidades.</p>
   </div>
 </div>
-<hr class="my-4 border-gray-300">
-<footer class="text-center justify-center p-6 items-center">
-    <p class="p-2">&copy; 2024 LockDev. Todos los derechos reservados.</p>
-</footer>
 
 `;
+  setTimeout(() => {
+    Footer($app);
+  }, 1000);
   $app.appendChild($container);
 };
