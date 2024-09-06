@@ -7,16 +7,15 @@ export const login = async (req, res) => {
   try {
     const pool = await createMyPool();
     const sql = `SELECT * FROM users WHERE username = ? and password = ?`;
-    const user = await pool.query(sql, [username, password]);
+    const [[user]] = await pool.query(sql, [username, password]);
 
     // Validación de usuario
-    if (!user[0]) {
+    if (!user) {
       return res.status(401).json({ message: "Credenciales incorrectas" });
     }
 
     // Generar token JWT
-
-    const token = await generarJwt(user[0][0].id);
+    const token = await generarJwt(user.id);
 
     // Almacenar el token en la sesión del servidor
     req.session.token = token;
